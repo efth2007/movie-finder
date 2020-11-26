@@ -30,3 +30,20 @@ $.each(movies, (index, movie)=>{
 $('#movies').html(output)
     }).catch((err)=>{console.log(err)})
 }
+
+function movieSelected(id){
+ // console.log(`The movie you selected: ${movie.imdbID}`)
+  sessionStorage.setItem('movieId', id);
+  window.location = './movie.html';
+  return false
+}
+
+function getMovie(){
+  let movieId =sessionStorage.getItem('movieId')
+
+  axios.get(`http://www.omdbapi.com/?apikey=f6e1b5fb&i=${movieId}`).then((res)=>{
+console.log(res)
+
+    }).catch((err)=>{console.log(err)})
+
+}
