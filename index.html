@@ -25,17 +25,23 @@
     <div class="container">
         <div id="movies" class="row"></div>
     </div>
-    <div class="pagination">
-        <div class="container">
-            <div id="pages" class="my-3 text-center">
+    
+        <div id="pagination" class="container">
+            <div class="row my-3">
+                <div id="previous-button" class="col-2">Prev</div>
+                <div id="pages" class="col-8 text-center"></div>
+                <div id="next-button" class="col-2">Next</div>
                 
             </div>
-            <!-- <div class="my-3 text-right">
-                <button id="next-button" type="submit" class="btn btn-primary" style="display:none">Next >></button>
-            </div> -->
+            <div class="my-3 text-right"  id="next33-button">
+                <!-- <button id="next-button" type="submit" class="btn btn-primary" style="display:none">Next >></button> -->
+                <div class="text-left">L</div>
+                <div class="text-right">R</div>
+            </div>
+            
         </div>
         
-    </div>
+    
 
     <script
     src="http://code.jquery.com/jquery-3.5.1.min.js"

@@ -4,7 +4,12 @@ $(document).ready(()=>{
       // console.log(`submited ${$("#searchText").val()}`)
        let searchText = $("#searchText").val()
       getMovies(searchText)
-      
+      getPageButtons(searchText)
+    //  console.log("these are the pages...:", pages.lastElementChild.innerHTML)
+    //  let lastPageNumber = parseInt(pages.lastElementChild.innerHTML)
+    //  console.log("Hope it's parsed", lastPageNumber) 
+   //  $('#next-button').html(`<button onclick="getPageButtons('${searchText}', 0, 1)" id="next-button" class="btn btn-primary m-3">Next33 >></button>`)
+      //$('#next-button').attr('style','display: inline')
   })
 })
 
@@ -32,18 +37,6 @@ $.each(movies, (index, movie)=>{
 $('#movies').html(output)
 
 
-let pages = ""
-
-var i;
-for (i = 1; i <= 10; i++) {
-pages += 
-`<a onclick="pageSelected('${searchText}', ${i})"  class="btn btn-primary m-1">${i}</a>`
-}
-pages += `<button id="next-button" type="submit" class="btn btn-primary m-3">Next >></button>`
-
- $('#pages').html(pages)
-
-//$('#next-button').attr('style','display: inline')
   }).catch((err)=>{console.log(err)})
 }
 
@@ -53,8 +46,35 @@ function pageSelected(searchText, page){
   console.log(`you are on page ${page} of found results!`)
 }
 
+function showNextPagegroup(n){
+ for (i= 10*n+1; i<= 10*n+10; i++){
+   console.log(`Gonna show button of page ${n}`)
+ }
+}
 
+function getPageButtons(searchText, i=1, n=0, totalResults){
+  console.log(`INITIAL i:${i} n:${n}`)
+let pages = ""
+for (i = 10*n; i < 10+10*n; i++) {
+  if (i===0)
+  {null} else
+{pages += 
+`<a onclick="pageSelected('${searchText}', ${i})" id="${i}" class="btn btn-primary m-1">${i}</a>`}
+}
+//pages += `<button id="next-button" type="submit" class="btn btn-primary m-3">Next >></button>`
+console.log(`searched for ${searchText}, first-page: ${i}, iteration: ${n+1}`)
+console.log(`FINAL i:${i} n: ${n}`)
+ $('#pages').html(pages)
 
+ //console.log("these are the pages...:", pages.lastElementChild.innerHTML)
+ //let lastPageNumber = parseInt(pages.lastElementChild.innerHTML)
+ //console.log("Hope it's parsed", lastPageNumber) 
+ $('#next-button').html(`<button onclick="getPageButtons('${searchText}', ${i}, ${n+1})" id="next-button" class="btn btn-primary m-3">${i} to ${i+9} >></button>`)
+ n>0 
+ ? $('#previous-button').html(`<button onclick="getPageButtons('${searchText}', ${i-10}, ${n-1})" id="previous-button" class="btn btn-primary m-3">${i-19} to ${i-11} <<</button>`)
+ : $('#previous-button').html(null)
+ return pages
+}
 
 function movieSelected(id){
  // console.log(`The movie you selected: ${movie.imdbID}`)
@@ -62,6 +82,9 @@ function movieSelected(id){
   window.location = './movie.html';
   return false
 }
+
+//*********************************************************** */
+//SINGLE MOVIE PAGE:
 
 function getMovie(){
   let movieId =sessionStorage.getItem('movieId')
@@ -90,7 +113,7 @@ let output = `
 <div class="row">
  <div class="well">
  <h3>Plot</h3>
- ${movie.PLot}
+ ${movie.Plot}
  <hr>
  <a href="https://www.imdb.com/title/${movie.imdbID}" target="blank" class="btn btn-primary">View IMDb page</a>
  <a href="index.html" class="btn btn-default">Back to Search</a>
